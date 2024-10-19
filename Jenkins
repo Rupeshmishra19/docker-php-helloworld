@@ -5,7 +5,7 @@ pipeline {
         // Define your Docker image name and tag
         DOCKER_IMAGE_NAME = 'php-my-app'
         DOCKER_IMAGE_TAG = 'latest'
-        GIT_REPO_URL = 'https://github.com/atishayinfo/docker-php-helloworld.git' // Your GitHub repo
+        GIT_REPO_URL = 'https://github.com/Lal0555/docker-php-helloworld.git' // Your GitHub repo
     }
 
     stages {
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image using the Dockerfile in the cloned repo
-                    def image = docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}")
+                    docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}")
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
     post {
         always {
             // Cleanup: Stop and remove containers if any are running
-            bat 'docker container prune -f' // Use 'bat' for Windows command execution
+            sh 'docker container prune -f' // Cleanup stopped containers
         }
     }
 }
